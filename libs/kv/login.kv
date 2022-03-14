@@ -1,0 +1,43 @@
+
+#:import MDBoxLayout kivymd.uix.boxlayout.MDBoxLayout
+#:import MDToolbar kivymd.uix.toolbar.MDToolbar
+#:import MDNavigationDrawer kivymd.uix.navigationdrawer.MDNavigationDrawer
+
+<LoggedInScreen>:
+    MDNavigationLayout:
+        ScreenManager:
+            Screen:
+                BoxLayout:
+                    orientation: 'vertical'
+
+                    MDToolbar:
+                        title: "Navigation Drawer"
+                        elevation: 10
+                        left_action_items: [['menu', lambda x: nav_drawer.toggle_nav_drawer()]]
+
+                    AnchorLayout:
+                        anchor_x: 'center'
+                        anchor_y: 'center'
+
+                        MDBoxLayout:
+                            orientation: 'vertical'
+                            adaptive_height: True
+                            size_hint_x: 0.7
+
+
+                            MDRaisedButton:
+                                pos_hint: {"center_x": 0.5}
+                                id: submit_button
+                                text: 'Aled'
+
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            NavigationDrawerContent:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"
+
+                ScrollView:
+                    MDList:
+                        id: md_list
