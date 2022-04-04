@@ -1,0 +1,68 @@
+##:kivy
+#:import MainToolbar views.components.MainToolbar
+#: import Clock kivy.clock.Clock
+
+<StyleLabel@MDLabel>
+    size_hint_y: None
+    height: self.texture_size[1]
+    theme_text_color: "Primary"
+
+<ItemCheck@MDBoxLayout>
+    text: ""
+    _parent: None
+    active: False
+    adaptive_height: False
+
+    MDSwitch:
+        id:checkbox
+        active: root.active
+        size_hint: None, 1
+        size: "48dp", "48dp"
+
+    StyleLabel:
+        text: root.text
+        size_hint: 1, 1
+        pos_hint: {"center_y": .5}
+
+
+<TagDetailScreen>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+
+
+    MDTextField:
+        id: order
+        hint_text: "Order"
+        input_filter: 'int'
+        on_focus: Clock.schedule_once(lambda dt: self.select_all(), 0.2) if self.focus else None
+        # on_focus: self.select_text()
+
+
+    ItemCheck:
+        id:is_enabled
+        text: "Enabled"
+        # active: True
+        _parent: root
+
+    ItemCheck:
+        id:is_main
+        text: "Main Label"
+        # active: False
+        _parent: root
+
+
+<TagSetupScreen>
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            id: toolbar
+            pos_hint: {"top": 1}
+            elevation: 10
+            title: "Tag Setup"
+            left_action_items: [["arrow-left", lambda x: root.controller.goto_parrent()]]
+
+        ScrollView:
+            MDList:
+                id: container

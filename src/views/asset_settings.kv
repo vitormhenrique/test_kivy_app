@@ -1,0 +1,18 @@
+##:kivy
+#:import MainToolbar views.components.MainToolbar
+
+<AssetSettingsScreen>
+    MDBoxLayout:
+        orientation: "vertical"
+
+        MainToolbar:
+            id:toolbar
+
+        ScrollView:
+            MDList:
+                id: container
+
+                TwoLineListItem:
+                    text: "Setup Tags"
+                    secondary_text: "Choose tags and order of labels"
+                    on_press:  root.goto_screen("Tag Setup")

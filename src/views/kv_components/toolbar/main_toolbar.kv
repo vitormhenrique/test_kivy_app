@@ -1,0 +1,8 @@
+##:kivy
+
+<MainToolbar>
+    pos_hint: {"top": 1}
+    elevation: 10
+    title: ""
+    # left_action_items: [["menu", lambda x: root.parent.parent.nav_drawer.set_state("open")]]     
+    left_action_items: [["menu", lambda x: app.controller.view.ids.nav_drawer.set_state("open")]]     

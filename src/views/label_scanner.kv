@@ -1,0 +1,54 @@
+##:kivy
+#:import OneLineListItemAlignedCenter views.components.OneLineListItemAlignedCenter
+
+<TagScan>
+    adaptive_height: True
+    orientation: "vertical"
+    text:""
+    OneLineListItemAlignedCenter:
+        text: root.text
+        divider: None
+        disabled: True
+    MDTextField:
+        id: input_code
+        # on_text : root.parent.parent.parent.parent.parent.handle_text_input(root)
+
+
+<LabelScannerScreen>
+    MDBoxLayout:
+        orientation: "vertical"
+        
+        MainToolbar:
+            id:toolbar
+
+        ScrollView:
+            MDBoxLayout:
+                adaptive_height: True
+                orientation: "vertical"
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    orientation: "vertical"
+                    MDList:
+                        id:header_content
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    orientation: "vertical"
+                    size_hint_x: 0.8
+                    pos_hint: {"center_x": .5}
+                    MDList:
+                        id:tag_scan_content
+
+
+
+        MDBottomAppBar:
+            MDToolbar:
+                icon: "close-circle-outline"
+                type: "bottom"
+                left_action_items: [["arrow-left", root.controller.previous_scan]]
+                right_action_items: [["content-save-move", root.controller.save_and_next]]
+                on_action_button: root.controller.clear_scan()
+
+                
+

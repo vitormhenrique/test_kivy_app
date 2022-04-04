@@ -1,0 +1,76 @@
+##:kivy
+#: import FadeTransition kivy.uix.screenmanager.FadeTransition
+
+<ContentNavigationDrawer>:
+
+    AnchorLayout:
+        anchor_x: "center"
+        size_hint_y: None
+        height: avatar.height
+
+        Image:
+            id: avatar
+            size_hint: None, None
+            size: "56dp", "56dp"
+            source: "assets/images/lancium.png"
+
+    MDLabel:
+        text: "Smart Response Mobile"
+        font_style: "Button"
+        size_hint_y: None
+        height: self.texture_size[1]
+
+
+    ScrollView:
+
+        MDList:
+
+            MDNavigationDrawerItem:
+                text: "Home"
+                icon: "home"
+                on_press:
+                    root.parent.parent.parent.goto_screen("Home")
+
+            MDNavigationDrawerDivider:
+    
+            MDNavigationDrawerLabel:
+                text: "Asset Management"
+
+            MDNavigationDrawerItem:
+                text: "Scan Labels"
+                icon: "barcode-scan"
+                on_press:
+                    root.parent.parent.parent.goto_screen("Scan Labels")
+
+            # MDNavigationDrawerItem:
+            #     icon: "table-check"
+            #     text: "View / Upload"
+
+            MDNavigationDrawerDivider:
+
+            MDNavigationDrawerLabel:
+                text: "Settings"
+
+            MDNavigationDrawerItem:
+                icon: "table-cog"
+                text: "Asset Management"
+
+                on_press:
+                    root.parent.parent.parent.goto_screen("Asset Setup")
+
+<RootScreen>
+
+    MDNavigationLayout:
+        # x: toolbar.height
+
+        ScreenManager:
+            id: screen_manager
+            transition: FadeTransition(duration=.2, clearcolor=app.theme_cls.bg_dark)
+                    
+        MDNavigationDrawer:
+            id: nav_drawer
+
+            ContentNavigationDrawer:
+                orientation: "vertical"
+                padding: "8dp"
+                spacing: "8dp"

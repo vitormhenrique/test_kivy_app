@@ -1,13 +1,10 @@
-'''
-'''
 import os
 import sys
 from pathlib import Path
 
-import pandas as pd
-from kivy.app import App
 from kivy.lang import Builder
-from kivy.properties import StringProperty
+from kivymd.app import MDApp
+
 from peewee import SqliteDatabase
 
 if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
@@ -20,42 +17,34 @@ DATABASE_FILE = f"{os.environ['SR_MOBILE_ROOT']}/sr_mobile.db"
 
 def get_database():
     return SqliteDatabase(DATABASE_FILE)
+    # None
 
-
-KV = '''
-BoxLayout:
-    orientation: "vertical"
-    Label:
-        text: app.result
-        text_size: self.width, None
-        halign: 'center'
-
-    Label:
-        text: app.test
-        text_size: self.width, None
-        halign: 'center'
-'''
-data = [['a1', 'b1', 'c1'],
-        ['a2', 'b2', 'c2'],
-        ['a3', 'b3', 'c3']]
-
-df = pd.DataFrame(data)
-
-class Application(App):
-    result = StringProperty('')
-    test = StringProperty('')
-    def build(self):
-
+class SRMobile(MDApp):
+    def __init__(self, **kwargs):
+        from controller.root import RootScreenController
+        super().__init__(**kwargs)
+        self.KV_DIR = os.path.join(os.environ['SR_MOBILE_ROOT'], "views")
+        self.load_all_kv_files()
+        self.title = "SR Mobile"
         self.database = get_database()
+        self.controller = RootScreenController()
 
-        from models.settings import Keys, Settings
+    def load_all_kv_files(self):
+        for dir, dirs, files in os.walk(self.KV_DIR):
+            for file in files:
+                if file.endswith(".kv"):
+                    path = os.path.join(dir, file)
+                    with open(path, encoding="utf-8") as kv:
+                        Builder.load_string(kv.read())
 
-        _asset_firmware = Settings.get(Settings.key==Keys.DEFAULT_FIRMWARE.key_value)
-        self.test = _asset_firmware.value
-
-        self.result = format(df)
-        return Builder.load_string(KV)
 
 
-if __name__ == "__main__":
-    Application().run()
+    def build(self):
+        return self.controller.get_screen()
+
+    def on_start(self):
+        self.root.dispatch("on_enter")
+
+
+if '__main__' == __name__:
+    SRMobile().run()
