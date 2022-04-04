@@ -23,10 +23,17 @@ def get_database():
 
 
 KV = '''
-Label:
-    text: app.result
-    text_size: self.width, None
-    halign: 'center'
+BoxLayout:
+    orientation: "vertical"
+    Label:
+        text: app.result
+        text_size: self.width, None
+        halign: 'center'
+
+    Label:
+        text: app.test
+        text_size: self.width, None
+        halign: 'center'
 '''
 data = [['a1', 'b1', 'c1'],
         ['a2', 'b2', 'c2'],
@@ -36,8 +43,16 @@ df = pd.DataFrame(data)
 
 class Application(App):
     result = StringProperty('')
+    test = StringProperty('')
     def build(self):
+
         self.database = get_database()
+
+        from models.settings import Keys, Settings
+
+        _asset_firmware = Settings.get(Settings.key==Keys.DEFAULT_FIRMWARE.key_value)
+        self.test = _asset_firmware.value
+
         self.result = format(df)
         return Builder.load_string(KV)
 
