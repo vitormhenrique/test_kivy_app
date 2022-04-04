@@ -1,10 +1,25 @@
 '''
 '''
+import os
+import sys
+from pathlib import Path
+
+import pandas as pd
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.properties import StringProperty
+from peewee import SqliteDatabase
 
-import pandas as pd
+if getattr(sys, "frozen", False):  # bundle mode with PyInstaller
+    os.environ["SR_MOBILE_ROOT"] = sys._MEIPASS
+else:
+    os.environ["SR_MOBILE_ROOT"] = str(Path(__file__).parent)
+
+DATABASE_FILE = f"{os.environ['SR_MOBILE_ROOT']}/sr_mobile.db"
+
+
+def get_database():
+    return SqliteDatabase(DATABASE_FILE)
 
 
 KV = '''
@@ -22,6 +37,7 @@ df = pd.DataFrame(data)
 class Application(App):
     result = StringProperty('')
     def build(self):
+        self.database = get_database()
         self.result = format(df)
         return Builder.load_string(KV)
 
