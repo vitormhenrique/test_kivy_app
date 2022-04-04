@@ -1,1 +1,0 @@
-# Simple Kivy App
