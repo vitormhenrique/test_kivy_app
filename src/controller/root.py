@@ -1,13 +1,15 @@
-from views.screens import RootScreen
 from kivy.properties import ObjectProperty
+from views.screens import RootScreen
 
-
-from controller.home import HomeScreenController
 from controller.asset_settings import AssetSettingsScreenController
-# from controller.label_scanner import LabelScannerScreen, LabelScannerScreenController
+from controller.asset_table import AssetTableScreenController
+from controller.home import HomeScreenController
+from controller.label_scanner import LabelScannerScreenController
+
+from controller.screen_controller import ScreenController
 
 
-class RootScreenController:
+class RootScreenController(ScreenController):
 
     screens = {
         "Home": {
@@ -18,13 +20,19 @@ class RootScreenController:
             "model": None,
             "controller": AssetSettingsScreenController,
         },
-        # "Scan Labels": {
-        #     "model": None,
-        #     "controller": LabelScannerScreenController,
-        # },
+        "Scan Labels": {
+            "model": None,
+            "controller": LabelScannerScreenController,
+        },
+        "Assets": {
+            "model": None,
+            "controller": AssetTableScreenController,
+        },
     }
 
     def __init__(self) -> None:
+
+        super().__init__()
 
         self.view = RootScreen(controller=self, name="root")
 

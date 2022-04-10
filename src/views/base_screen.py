@@ -1,11 +1,11 @@
 from kivy.properties import ObjectProperty
-
 from kivymd.app import MDApp
 from kivymd.theming import ThemableBehavior
 from kivymd.uix.screen import MDScreen
-
 from utility.observer import Observer
-
+from kivy.clock import Clock
+from functools import partial
+from kivy.logger import Logger
 
 class BaseScreenView(ThemableBehavior, MDScreen, Observer):
     """
@@ -38,30 +38,37 @@ class BaseScreenView(ThemableBehavior, MDScreen, Observer):
     and defaults to `None`.
     """
 
+    app = ObjectProperty()
+
     def goto_screen(self, screen_name):
-        if 'nav_drawer' in self.ids and self.ids.nav_drawer is not None:
-            self.ids.nav_drawer.set_state("close")
         self.controller.transition_to_screen(screen_name)
 
+        
     def on_pre_enter(self):
+        # self.app.start_loading_screen()
         invert_op = getattr(self.controller, "on_pre_enter", None)
+        Logger.debug('on_pre_enter called')
         if callable(invert_op):
             invert_op()
 
     def on_enter(self):
         invert_op = getattr(self.controller, "on_enter", None)
+        Logger.debug('on_enter called')
         if callable(invert_op):
             invert_op()
 
-    # def on_pre_leave(self):
-    #     invert_op = getattr(self.controller, "on_pre_leave", None)
-    #     if callable(invert_op):
-    #         invert_op()
+    def on_leave(self):
+        self.app.close_loading_screen()
+        invert_op = getattr(self.controller, "on_leave", None)
+        Logger.debug('on_leave called')
+        if callable(invert_op):
+            invert_op()
 
-    # def on_leave(self):
-    #     invert_op = getattr(self.controller, "on_leave", None)
-    #     if callable(invert_op):
-    #         invert_op()
+    def on_pre_leave(self):
+        invert_op = getattr(self.controller, "on_pre_leave", None)
+        Logger.debug('on_pre_leave called')
+        if callable(invert_op):
+            invert_op()
 
     def __init__(self, **kw):
         super().__init__(**kw)

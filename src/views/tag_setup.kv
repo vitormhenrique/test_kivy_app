@@ -12,12 +12,13 @@
     _parent: None
     active: False
     adaptive_height: False
+    spacing:"24dp"
 
     MDSwitch:
         id:checkbox
         active: root.active
         size_hint: None, 1
-        size: "48dp", "48dp"
+        size: "40dp", "40dp"
 
     StyleLabel:
         text: root.text
@@ -37,19 +38,15 @@
         hint_text: "Order"
         input_filter: 'int'
         on_focus: Clock.schedule_once(lambda dt: self.select_all(), 0.2) if self.focus else None
-        # on_focus: self.select_text()
-
 
     ItemCheck:
         id:is_enabled
         text: "Enabled"
-        # active: True
         _parent: root
 
     ItemCheck:
         id:is_main
         text: "Main Label"
-        # active: False
         _parent: root
 
 

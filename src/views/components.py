@@ -5,13 +5,33 @@ from kivy.properties import ObjectProperty
 from kivymd.uix.widget import MDWidget
 from kivy.clock import Clock
 
+from kivymd.uix.textfield import MDTextField
+from kivymd.uix.relativelayout import MDRelativeLayout
+
+
+class ScanInput(MDTextField):
+    # def on_focus(self, *args):
+    #     if kivy.utils.platform == 'android':
+    #         self._unbind_keyboard()
+    pass
+
+
+# class ScanInput(MDTextField):
+#     def _on_focus(self, *args):
+#         super()._on_focus(*args)
+#         self.hide_keyboard()
 class TagScan(MDBoxLayout):
     tag_id = ObjectProperty()
     text = ObjectProperty()
     # order = ObjectProperty()
 
+class SpinnerContent(MDRelativeLayout):
+    pass
+
 class MainToolbar(MDToolbar):
     pass
+
+
 
 
 class OneLineListItemAligned(OneLineListItem):

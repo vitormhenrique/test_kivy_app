@@ -1,76 +1,75 @@
 ##:kivy
 #: import FadeTransition kivy.uix.screenmanager.FadeTransition
-
-<ContentNavigationDrawer>:
-
-    AnchorLayout:
-        anchor_x: "center"
-        size_hint_y: None
-        height: avatar.height
-
-        Image:
-            id: avatar
-            size_hint: None, None
-            size: "56dp", "56dp"
-            source: "assets/images/lancium.png"
-
-    MDLabel:
-        text: "Smart Response Mobile"
-        font_style: "Button"
-        size_hint_y: None
-        height: self.texture_size[1]
-
-
-    ScrollView:
-
-        MDList:
-
-            MDNavigationDrawerItem:
-                text: "Home"
-                icon: "home"
-                on_press:
-                    root.parent.parent.parent.goto_screen("Home")
-
-            MDNavigationDrawerDivider:
-    
-            MDNavigationDrawerLabel:
-                text: "Asset Management"
-
-            MDNavigationDrawerItem:
-                text: "Scan Labels"
-                icon: "barcode-scan"
-                on_press:
-                    root.parent.parent.parent.goto_screen("Scan Labels")
-
-            # MDNavigationDrawerItem:
-            #     icon: "table-check"
-            #     text: "View / Upload"
-
-            MDNavigationDrawerDivider:
-
-            MDNavigationDrawerLabel:
-                text: "Settings"
-
-            MDNavigationDrawerItem:
-                icon: "table-cog"
-                text: "Asset Management"
-
-                on_press:
-                    root.parent.parent.parent.goto_screen("Asset Setup")
+#: import NoTransition kivy.uix.screenmanager.NoTransition
 
 <RootScreen>
 
     MDNavigationLayout:
-        # x: toolbar.height
 
         ScreenManager:
             id: screen_manager
-            transition: FadeTransition(duration=.2, clearcolor=app.theme_cls.bg_dark)
+            transition: NoTransition()
+            # transition: FadeTransition(duration=.2, clearcolor=app.theme_cls.bg_dark)
                     
         MDNavigationDrawer:
             id: nav_drawer
+            type: "standard"
+            # closing_time:0
 
-            ContentNavigationDrawer:
-                orientation: "vertical"
-                padding: "8dp"
-                spacing: "8dp"
+            MDNavigationDrawerMenu:
+
+                AnchorLayout:
+                    anchor_x: "center"
+                    size_hint_y: None
+                    height: avatar.height
+
+                    Image:
+                        id: avatar
+                        size_hint: None, None
+                        size: "56dp", "56dp"
+                        source: "assets/images/lancium.png"
+
+                MDNavigationDrawerHeader:
+                    title:"Smart Response Mobile"
+                    title_font_size:"20sp"
+                    title_halign:"center"
+
+                MDNavigationDrawerItem:
+                    text: "Home"
+                    icon: "home"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        root.goto_screen("Home")
+
+                MDNavigationDrawerDivider:
+        
+                MDNavigationDrawerLabel:
+                    text: "Asset Management"
+
+                MDNavigationDrawerItem:
+                    text: "Scan Labels"
+                    icon: "barcode-scan"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        root.goto_screen("Scan Labels")
+                        # app.start_loading_screen()
+
+                MDNavigationDrawerItem:
+                    icon: "table-check"
+                    text: "Assets"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        root.goto_screen("Assets")
+                        # app.start_loading_screen()
+
+                MDNavigationDrawerDivider:
+
+                MDNavigationDrawerLabel:
+                    text: "Settings"
+
+                MDNavigationDrawerItem:
+                    icon: "table-cog"
+                    text: "Asset Management"
+                    on_release:
+                        nav_drawer.set_state("close")
+                        root.goto_screen("Asset Setup")

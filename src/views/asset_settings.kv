@@ -1,6 +1,19 @@
 ##:kivy
 #:import MainToolbar views.components.MainToolbar
 
+
+<DefaultSettingValue>
+    orientation: "vertical"
+    spacing: "12dp"
+    size_hint_y: None
+    height: "120dp"
+
+    MDTextField:
+        id:setting_value
+        hint_text: "Value"
+        on_focus: Clock.schedule_once(lambda dt: self.select_all(), 0.2) if self.focus else None
+
+
 <AssetSettingsScreen>
     MDBoxLayout:
         orientation: "vertical"
@@ -9,10 +22,23 @@
             id:toolbar
 
         ScrollView:
-            MDList:
-                id: container
 
-                TwoLineListItem:
-                    text: "Setup Tags"
-                    secondary_text: "Choose tags and order of labels"
-                    on_press:  root.goto_screen("Tag Setup")
+            MDBoxLayout:
+                adaptive_height: True
+                orientation: "vertical"
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    orientation: "vertical"
+                    MDList:
+                        id: container
+                        TwoLineListItem:
+                            text: "Setup Tags"
+                            secondary_text: "Choose tags and order of labels"
+                            on_press:  root.goto_screen("Tag Setup")
+
+                MDBoxLayout:
+                    adaptive_height: True
+                    orientation: "vertical"
+                    MDList:
+                        id:setting_container

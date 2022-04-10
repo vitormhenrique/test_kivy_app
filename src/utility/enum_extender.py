@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class ChoicesEnum(Enum):
+class SettingChoicesEnum(Enum):
 
     @classmethod
     def list(cls):
@@ -18,4 +18,8 @@ class ChoicesEnum(Enum):
     @property
     def key_value(self):
         return self.value[0]
+
+    @property
+    def key_visible(self):
+        return self.value[2]
 

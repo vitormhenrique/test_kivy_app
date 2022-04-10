@@ -2,9 +2,27 @@
 #:import MainToolbar views.components.MainToolbar
 
 <HomeScreen>
-    MainToolbar:
-        id:toolbar
+    MDBoxLayout:
+        orientation: "vertical"
+        MainToolbar:
+            id:toolbar
 
-    MDLabel:
-        text: "This is the main screen"
-        halign: "center"
+        ScrollView:
+
+            MDList:
+                id:home_list
+                TwoLineListItem:
+                    id:total_assets_scanned
+                    text: "Total Assets Scanned"
+                    secondary_text: ""
+                    disabled:True
+                TwoLineListItem:
+                    id:assets_scanned_not_synced
+                    text: "Assets Scanned Not Synced"
+                    secondary_text: ""
+                    disabled:True
+                TwoLineListItem:
+                    id:assets_scanned_synced
+                    text: "Assets Synced"
+                    secondary_text: ""
+                    disabled:True

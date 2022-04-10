@@ -1,23 +1,23 @@
 
-from views.screens import TagSetupScreen, TagDetailScreen
-from kivy.uix.screenmanager import SlideTransition
-from kivymd.uix.dialog import MDDialog
-from kivymd.uix.button import MDFlatButton
-from kivymd.uix.selectioncontrol import MDCheckbox
-from kivy.uix.boxlayout import BoxLayout
-from models.tag import Tag
-from typing import List
-from kivymd.uix.list import TwoLineListItem
 from functools import partial
+from typing import List
+
+from kivy.uix.screenmanager import SlideTransition
+from kivymd.uix.button import MDFlatButton
+from kivymd.uix.dialog import MDDialog
+from kivymd.uix.list import TwoLineListItem
+from models.tag import Tag
+from views.screens import TagDetailScreen, TagSetupScreen
+
+from controller.screen_controller import ScreenController
 
 
-class Content(BoxLayout):
-    pass
-
-
-class TagSetupScreenController:
+class TagSetupScreenController(ScreenController):
 
     def __init__(self) -> None:
+
+        super().__init__()
+
         self.dialog = None
         self.view = TagSetupScreen(controller=self)
 
@@ -65,11 +65,7 @@ class TagSetupScreenController:
             self.dialog = None
 
     def edit_tag_detail(self, tag_id, dialog):
-        # print(f"Finished editing tag {tag_id}")
-
         tag: Tag = Tag.get(Tag.id == tag_id)
-
-        # print(f"Dialog is enabled is {val}")
 
         tag.order = int(self.dialog.content_cls.ids.order.text)
         tag.enabled = self.dialog.content_cls.ids.is_enabled.ids.checkbox.active
