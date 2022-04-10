@@ -65,12 +65,6 @@ class AssetTableScreenController(ScreenController):
 
         return pd.DataFrame()
     
-    def on_pre_leave(self):
-        Logger.debug("cleaning widgets")
-
-    def on_pre_enter(self):
-        Clock.schedule_once(self._load_screen, 0)
-
     def _load_screen(self, *args):
         # Clock.schedule_once(self.app.start_loading_screen(), 0)
         # self.app.start_loading_screen()
@@ -122,7 +116,9 @@ class AssetTableScreenController(ScreenController):
         # self.app.close_loading_screen()
 
     def on_enter(self):
-        Logger.info(f"On enter in {time()-self._start_time:.3} seconds")
+        # BUG: THIS IS NEVER BEING CALLED FROM THE VIEW METHOD.
+        Clock.schedule_once(self._load_screen, 1)
+        # pass
 
     def send_data_sr(self, *args):
 

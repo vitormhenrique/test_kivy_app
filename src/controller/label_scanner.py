@@ -51,12 +51,6 @@ class LabelScannerScreenController(ScreenController):
 
         return self.view
 
-    def on_pre_enter(self):
-
-        # self.app.start_loading_screen()
-
-        if self.ui_tags is not None:
-            self.clear_scan()
 
     def __load_settings(self):
         _asset_firmware = Settings.get(
@@ -80,6 +74,9 @@ class LabelScannerScreenController(ScreenController):
             self._asset_manufacturer = _asset_manufacturer.value
 
     def on_pre_enter(self):
+        self.view.ids.tag_scan_content.clear_widgets()
+
+    def on_enter(self):
         self._current_tag_focus = 0
 
         self.view.ids.header_content.clear_widgets()
@@ -124,7 +121,7 @@ class LabelScannerScreenController(ScreenController):
                 ui_tag
             )
 
-        Clock.schedule_once(self.set_ui_focus, 0)
+        Clock.schedule_once(self.set_ui_focus, 1)
 
     def _load_asset(self):
 

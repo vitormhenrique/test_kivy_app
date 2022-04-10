@@ -32,22 +32,13 @@ class TagSetupScreen(BaseScreenView):
 #     pass
 
 class RootScreen(BaseScreenView):
-    def on_enter(self):
-        Logger.info("on enter root")
-
-    def on_leave(self):
-        Logger.info("on leave root")
+    pass
 
 class HomeScreen(BaseScreenView):
-
-    def on_enter(self):
-        self.ids.toolbar.title = "Home"
+    pass
 
 class AssetSettingsScreen(BaseScreenView):
-   
-    def on_enter(self):
-        self.ids.toolbar.title = "Asset Settings"
+    pass
 
 class AssetTableScreen(BaseScreenView):
-    def on_enter(self):
-        self.ids.toolbar.title = "Scanned Assets"
+    pass

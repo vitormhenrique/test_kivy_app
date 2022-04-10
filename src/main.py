@@ -45,9 +45,6 @@ class SRMobile(MDApp):
     def build(self):
         return self.controller.get_screen()
 
-    def on_start(self):
-        self.root.dispatch("on_enter")
-
     @mainthread
     def start_loading_screen(self, *args):
 
