@@ -36,13 +36,13 @@ class RootScreenController(ScreenController):
 
         self.view = RootScreen(controller=self, name="root")
 
-        # self.screen_manager = self.view.ids.screen_manager
+        self.screen_manager = self.view.ids.screen_manager
 
         for i, name_screen in enumerate(self.screens.keys()):
             model = self.screens[name_screen]["model"]
             controller = self.screens[name_screen]["controller"](model)
             view = controller.get_screen()
-            # view.screen_manager = self.screen_manager
+            view.screen_manager = self.screen_manager
             view.name = name_screen
             self.view.ids.screen_manager.add_widget(view)
 
