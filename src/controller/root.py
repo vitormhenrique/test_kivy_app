@@ -36,24 +36,25 @@ class RootScreenController(ScreenController):
 
         self.view = RootScreen(controller=self, name="root")
 
-        self.screen_manager = self.view.ids.screen_manager
+        # self.screen_manager = self.view.ids.screen_manager
 
         for i, name_screen in enumerate(self.screens.keys()):
             model = self.screens[name_screen]["model"]
             controller = self.screens[name_screen]["controller"](model)
             view = controller.get_screen()
-            view.screen_manager = self.screen_manager
+            # view.screen_manager = self.screen_manager
             view.name = name_screen
-            self.screen_manager.add_widget(view)
+            self.view.ids.screen_manager.add_widget(view)
 
         # self.view.ids.screen_manager.add_widget(view)
 
     def get_screen(self):
         """The method creates get the view."""
 
+        # return self.view.ids.screen_manager
         return self.view
 
     def transition_to_screen(self, screen_name):
 
-        self.screen_manager.current = screen_name
+        self.view.ids.screen_manager.current = screen_name
 

@@ -69,7 +69,12 @@ class AssetSettingsScreenController(ScreenController):
 
         for key in Keys:
 
-            _value = Settings.get(Settings.key == key.key_value).value
+            _value = ""
+
+            try:
+                _value = Settings.get(Settings.key == key.key_value).value
+            except Settings.DoesNotExist:
+                pass
 
             _func = partial(self.show_edit_dialog, key, _value)
 

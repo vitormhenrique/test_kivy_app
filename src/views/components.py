@@ -1,4 +1,4 @@
-from kivymd.uix.toolbar import MDToolbar
+from kivymd.uix.toolbar import MDTopAppBar
 from kivymd.uix.list import OneLineListItem
 from kivymd.uix.boxlayout import MDBoxLayout
 from kivy.properties import ObjectProperty
@@ -28,7 +28,7 @@ class TagScan(MDBoxLayout):
 class SpinnerContent(MDRelativeLayout):
     pass
 
-class MainToolbar(MDToolbar):
+class MainToolbar(MDTopAppBar):
     pass
 
 
